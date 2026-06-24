@@ -653,7 +653,7 @@ void SAPI_GetEmuClientData(unsigned int clnum, struct clientEmu_t *emu)
 		return;
 	}
 	client_t* cl = &svs.clients[clnum];
-	
+
 	emu->challenge = cl->challenge;
 	emu->playerid = cl->playerid;
 	emu->steamid = cl->steamid;
@@ -682,6 +682,26 @@ void SAPI_SetEmuClientData(unsigned int clnum, struct clientEmu_t *emu)
 		return;
 	}
 	client_t* cl = &svs.clients[clnum];
+
+	/*
+	* Non-Steam fallback.
+	*
+	* Real Steam users already have a valid playerid assigned
+	* by the Steam module.
+	*
+	* Non-Steam users arrive here with playerid == 0.
+	* Generate a deterministic PlayerID from the PB GUID.
+	*/
+
+	if(emu->playerid == 0)
+	{
+		uint64_t pid = SV_SApiGUID2PlayerID(cl->legacy_pbguid);
+
+		if(pid != 0)
+		{
+			emu->playerid = pid;
+		}
+	}
 
 	cl->challenge = emu->challenge;
 	cl->playerid = emu->playerid;

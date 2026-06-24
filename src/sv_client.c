@@ -432,6 +432,21 @@ __optimize3 __regparm1 void SV_DirectConnect( netadr_t *from ) {
   // save the userinfo
   Q_strncpyz(newcl->userinfo, userinfo, sizeof(newcl->userinfo) );
 
+	/*
+	* Preserve the client PB GUID from the connect packet.
+	* Used later to generate a deterministic PlayerID for
+	* non-Steam clients.
+	*/
+	const char *pbguid = Info_ValueForKey(userinfo, "pbguid");
+	if(pbguid && strlen(pbguid) == 32)
+	{
+		Q_strncpyz(
+			newcl->legacy_pbguid,
+			pbguid,
+			sizeof(newcl->legacy_pbguid)
+		);
+	}
+
   PHandler_Event(PLUGINS_ONPLAYERCONNECT, clientNum, from, "", userinfo, 0, denied, sizeof(denied));
 
   if(denied[0]){
