@@ -798,6 +798,53 @@ void PlayerCmd_SetMoveSpeed(scr_entref_t arg)
 
 /*
 ============
+PlayerCmd_GetIp
+returns the client IP address
+============
+*/
+
+void PlayerCmd_GetIp(scr_entref_t arg)
+{
+    gentity_t *gentity;
+    int entityNum;
+
+    if (arg.classnum)
+    {
+        Scr_ObjectError("Not an entity");
+        return;
+    }
+
+    entityNum = arg.entnum;
+    gentity = &g_entities[entityNum];
+
+    if (!gentity->client)
+    {
+        Scr_ObjectError("Entity is not a player");
+        return;
+    }
+
+    client_t *cl = &svs.clients[entityNum];
+
+    char ip[64];
+
+    Q_strncpyz(
+        ip,
+        NET_AdrToString(&cl->netchan.remoteAddress),
+        sizeof(ip)
+    );
+
+    char *colon = strrchr(ip, ':');
+
+    if (colon)
+    {
+        *colon = '\0';
+    }
+
+    Scr_AddString(ip);
+}
+
+/*
+============
 PlayerCmd_GetGeoLocation
 resolves country from IP address
 ============
