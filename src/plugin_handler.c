@@ -200,6 +200,7 @@ void PHandler_CloseTempFile(char* filepath)
 #define PLUGINCENSOR_HASH "bfb496df0acc1bd01a0789b8d35d8081143db883297206aa"
 #define PLUGINANTISPAM_HASH "7fc95f3902bd809a1e50a783fbb482044f67ad8927259a36"
 #define PLUGINGAMERANGER_HASH "6609a69715a41b486611fa1c461f90acfed836eac0e699d8"
+#define PLUGINHTTP_HASH "4ec47d9381e4fc2cfe28beee6edfe4b1a9040c3a6bd87c13"
 
 
 void PHandler_Load(char* name) // Load a plugin, safe for use
@@ -254,7 +255,7 @@ void PHandler_Load(char* name) // Load a plugin, safe for use
 
 	Sec_HashFile(SEC_HASH_TIGER, realpath, hash, &sizeofhash, qfalse);
 
-	if(Q_stricmp(hash ,PLUGINGAMERANGER_HASH) && Q_stricmp(hash ,PLUGINCENSOR_HASH) && Q_stricmp(hash ,PLUGINANTISPAM_HASH))
+	if(Q_stricmp(hash ,PLUGINGAMERANGER_HASH) && Q_stricmp(hash ,PLUGINCENSOR_HASH) && Q_stricmp(hash ,PLUGINANTISPAM_HASH) && Q_stricmp(hash ,PLUGINHTTP_HASH))
 	{
 		Com_Printf(CON_CHANNEL_PLUGINS,"Tiger = %s\n", hash);
 		Com_PrintError(CON_CHANNEL_PLUGINS,"%s checksum missmatch! This plugin will not be loaded in securemode.\n", realpath);
