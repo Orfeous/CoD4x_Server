@@ -82,6 +82,9 @@ cvar_t* com_developer;
 cvar_t* useFastFile;
 cvar_t* com_developer_script;
 cvar_t* com_logfile;
+cvar_t* ssrt_logStructured;
+cvar_t* ssrt_logTimestamps;
+cvar_t* ssrt_logLevel;
 cvar_t* com_sv_running;
 cvar_t* com_securemodevar;
 cvar_t* sv_webadmin;
@@ -484,6 +487,9 @@ static void Com_InitCvars( void ){
     com_developer = Cvar_RegisterInt("developer", 0, 0, 2, 0, "Enable development options");
     com_developer_script = Cvar_RegisterBool ("developer_script", qfalse, 16, "Enable developer script comments");
     com_logfile = Cvar_RegisterEnum("logfile", logfileEnum, 0, 0, "Write to logfile");
+    ssrt_logStructured = Cvar_RegisterBool("ssrt_logStructured", qtrue, 0, "Enable SSRT structured log formatting");
+    ssrt_logTimestamps = Cvar_RegisterBool("ssrt_logTimestamps", qtrue, 0, "Include UTC timestamps in SSRT structured logs");
+    ssrt_logLevel = Cvar_RegisterString("ssrt_logLevel", "debug", 0, "Minimum SSRT structured log level: debug, info, warn, error");
     com_logrcon = Cvar_RegisterBool("logrcon", 0, 0, "Write response of rcon commands to logfile");
     com_sv_running = Cvar_RegisterBool("sv_running", qfalse, 64, "Server is running");
     com_securemodevar = Cvar_RegisterBool("securemode", qfalse, CVAR_INIT, "CoD4 runs in secure mode which restricts execution of external scripts/programs and loading of unauthorized shared libraries/plugins. This is recommended in a shared hosting environment");
@@ -1222,7 +1228,7 @@ void QDECL Com_Error( int code, const char *fmt, ... ) {
 		mainThreadInError = qfalse;
 		longjmp(*abortframe, -1);
 	} else if (code == ERR_DROP) {
-		Com_Printf(CON_CHANNEL_SYSTEM,"********************\nERROR: %s\n********************\n", com_errorMessage);
+		Com_Printf(CON_CHANNEL_ERROR,"********************\nERROR: %s\n********************\n", com_errorMessage);
 		SV_Shutdown (va("Server crashed: %s",  com_errorMessage));
 		/*FS_PureServerSetLoadedPaks("", "");*/
 		com_errorEntered = qfalse;

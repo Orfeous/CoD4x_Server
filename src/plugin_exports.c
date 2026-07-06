@@ -1100,7 +1100,7 @@ P_P_F void Plugin_DPrintf( const char *fmt, ...) {
 	Q_vsnprintf (&msg[2], (sizeof(msg)-3), fmt, argptr);
 	va_end (argptr);
 
-        Com_PrintMessage( CON_CHANNEL_PLUGINS, msg, MSG_DEFAULT);
+        Com_PrintMessage( CON_CHANNEL_PLUGINS, msg, MSG_DEBUG);
 }
 
 

@@ -32,7 +32,10 @@ typedef enum{
     MSG_NA,	//Not defined
     MSG_WARNING,
     MSG_ERROR,
-    MSG_NORDPRINT
+    MSG_NORDPRINT,
+    MSG_DEBUG,
+    MSG_WARNING_NORDPRINT,
+    MSG_DEBUG_NORDPRINT
 }msgtype_t;
 
 

@@ -588,7 +588,7 @@ void QDECL SApi_DPrintf( const char *fmt, ...) {
 	Q_vsnprintf (&msg[2], (sizeof(msg)-3), fmt, argptr);
 	va_end (argptr);
 
-        Com_PrintMessage( CON_CHANNEL_STEAM, msg, MSG_DEFAULT);
+        Com_PrintMessage( CON_CHANNEL_STEAM, msg, MSG_DEBUG);
 }
 
 
@@ -916,4 +916,3 @@ void SV_SApiCancelAuthenticationTicket(uint32_t ticket)
 		sapi_imp.CancelAuthenticationTicket(ticket); //To authenticate this server towards other servers
 	}
 }
-
