@@ -49,6 +49,9 @@ COMMON_FLAGS=-m32 -msse2 -mfpmath=sse -Wall -fno-omit-frame-pointer -fmax-errors
 CFLAGS=$(COMMON_FLAGS) -std=gnu11
 CXXFLAGS=$(COMMON_FLAGS) -std=gnu++11
 
+SSRT_CFLAGS := -DSSRT_DISABLE_AUTOUPDATE
+CFLAGS += $(SSRT_CFLAGS)
+
 ifeq ($(DEBUG), true)
 DCFLAGS=-fno-pie -O0 -g
 else

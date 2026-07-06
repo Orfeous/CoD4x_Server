@@ -538,9 +538,9 @@ void Com_Init(char* commandLine){
 	NET_Init();
 
 	Com_DownloadAndExecGlobalConfig();
-
+#ifndef SSRT_DISABLE_AUTOUPDATE
     Sec_Update( qfalse );
-
+#endif
     FS_InitFilesystem();
 
     Win_InitLocalization();
