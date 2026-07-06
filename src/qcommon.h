@@ -74,6 +74,9 @@ extern cvar_t* com_timescale;
 extern cvar_t* com_sv_running;
 extern cvar_t* com_logfile;
 extern cvar_t* com_developer;
+extern cvar_t* ssrt_logStructured;
+extern cvar_t* ssrt_logTimestamps;
+extern cvar_t* ssrt_logLevel;
 extern cvar_t* useFastFile;
 extern cvar_t* com_animCheck;
 extern cvar_t* com_version;
@@ -142,4 +145,3 @@ const char *__cdecl Com_DisplayName(const char *name, const char *clanAbbrev, in
 
 
 #endif
-

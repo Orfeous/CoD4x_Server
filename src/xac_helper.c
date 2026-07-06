@@ -111,7 +111,7 @@ void QDECL XACHLP_DPrintf( const char *fmt, ...) {
 	Q_vsnprintf (&msg[2], (sizeof(msg)-3), fmt, argptr);
 	va_end (argptr);
 
-        Com_PrintMessage( CON_CHANNEL_STEAM, msg, MSG_DEFAULT);
+        Com_PrintMessage( CON_CHANNEL_STEAM, msg, MSG_DEBUG);
 }
 
 void XACHLP_EnterWorldLock(unsigned int client, qboolean status)
@@ -347,4 +347,3 @@ void SV_RunFrameXAC()
 	if(xac_imp.RunFrame)
 		xac_imp.RunFrame();
 }
-
